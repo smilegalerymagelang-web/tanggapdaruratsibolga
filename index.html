@@ -1,0 +1,133 @@
+
+<html>
+    <head>
+        <title>Login</title>
+     <style>
+
+body{
+    margin:0;
+    font-family:Arial;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:url('https://res.cloudinary.com/deybh6pja/image/upload/v1773382460/ChatGPT_Image_Mar_13_2026_01_13_41_PM.png') no-repeat center;
+    background-size:cover;
+}
+
+.login-box{
+    background:rgba(255,255,255,0.9);
+    padding:30px;
+    border-radius:10px;
+    width:90%;
+    max-width:350px;
+    text-align:center;
+}
+
+.login-box h2{
+    margin-bottom:20px;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:1px solid #ccc;
+    border-radius:6px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    background:#00AAFF;
+    color:white;
+    font-size:16px;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#008ecc;
+}
+
+</style>  
+    </head>
+    <body>
+       <div class="box">
+            <div class="form">
+                <h2>Login</h2><br>
+                  
+                        <div class="inputbox">
+                           
+                            <input type="text" id="username"  required placeholder="Masukkan Username"><br><br>
+                          
+                        </div>
+                        <div class="inputbox"> 
+                            
+                            <input type="password" id="password"  required placeholder="Masukkan Password"><br><br>
+                          
+                        </div>  
+                            
+                           <button onclick="login()" class="btn-login">Login</button>
+            </div>
+        </div>
+          
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+        <script >
+            
+            const firebaseConfig = {
+             apiKey: "AIzaSyC0D0j5H_er4TYdRdQj7xqCiTCSas30YY0",
+                authDomain: "backuptransksi.firebaseapp.com",
+                databaseURL: "https://backuptransksi-default-rtdb.asia-southeast1.firebasedatabase.app",
+                projectId: "backuptransksi",
+                storageBucket: "backuptransksi.firebasestorage.app",
+                messagingSenderId: "205255091131",
+                appId: "1:205255091131:web:978ed2abb274747c621a9e",
+                measurementId: "G-BR2J9886J7"
+            };
+
+          firebase.initializeApp(firebaseConfig);
+
+                const db = firebase.database();
+
+                function login() {
+
+                const username = document.getElementById("username").value;
+                const password = document.getElementById("password").value;
+                const user = document.getElementById("username").value.trim();
+
+                db.ref("users").once("value", function(snapshot) {
+
+                    let loginBerhasil = false;
+
+                    snapshot.forEach(function(child) {
+
+                    const data = child.val();
+
+                    if(data.username === username && data.password === password){
+                        loginBerhasil = true;
+                    
+                   
+            }
+
+            
+            });
+
+            if(loginBerhasil){
+                    localStorage.setItem("username", user);
+                    document.getElementById("hasil").innerHTML = window.location.href = "home.html";
+                    }else{
+                    document.getElementById("hasil").innerHTML = alert("Username & Password Salah !");
+                    }
+
+                });
+
+
+            }
+
+
+        </script>
+    </body>
+</html>
