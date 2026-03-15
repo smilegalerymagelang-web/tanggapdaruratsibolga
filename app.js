@@ -23,7 +23,7 @@ function uploadImage() {
  const file = document.getElementById("imageFile").files[0];
  const loading = document.getElementById("loading");
 
- imageUrl = null;
+
 
 // cek jika file kosong 
 if(!file){ 
@@ -35,7 +35,8 @@ return; }
   const formData = new FormData();
   formData.append("file", file);
   formData.append("upload_preset", "Absen-wika");
-
+  preview.src = null;
+  const imageUrl = null;
 
 let xhr = new XMLHttpRequest();
 
@@ -57,6 +58,11 @@ let xhr = new XMLHttpRequest();
 
     // PREVIEW
     document.getElementById("preview").src = imageUrl;
+    document.getElementById("urlText").textContent = data.secure_url;
+
+    if(!file){ 
+      alert("Photo Selfie Masih Kosong !!,silahkan Ambil Photo Selfie.."); 
+    return; }
 
     // SIMPAN KE FIREBASE
     firebase.database().ref("absen/"+tanggal).push({
