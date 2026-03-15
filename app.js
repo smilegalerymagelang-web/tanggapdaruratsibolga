@@ -50,11 +50,18 @@ let xhr = new XMLHttpRequest();
   .then(data => {
 
     // URL CLOUDINARY
+    const namabulan = [
+    "Januari","Februari","Maret","April","Mei","Juni",
+    "Juli","Agustus","September","Oktober","November","Desember"
+    ];
+    
     const imageUrl = data.secure_url;
     const now = new Date();
+    const bulan = namabulan[now.getMonth()];
     const nama = localStorage.getItem("username");
     const jabatan = "Site Manager of Administratif";
     const tanggal = now.getDate()+String(new Date().getMonth() + 1).padStart(2,'0')+now.getFullYear();
+    const tampilanBulan = now.getDate() + " " + bulan + " " + now.getFullYear();
 
     // PREVIEW
     document.getElementById("preview").src = imageUrl;
@@ -70,6 +77,15 @@ let xhr = new XMLHttpRequest();
         waktu: now.getHours() + ":" + String(new Date().getMinutes()).padStart(2, '0') + ":" + now.getSeconds(),
         date: now.getDate()+String(new Date().getMonth() + 1).padStart(2,'0')+now.getFullYear(),
         nama : nama
+     
+    });
+
+     firebase.database().ref("periode/"+nama).push({
+       photo: imageUrl,
+        waktu: now.getHours() + ":" + String(new Date().getMinutes()).padStart(2, '0') + ":" + now.getSeconds(),
+        date: now.getDate()+String(new Date().getMonth() + 1).padStart(2,'0')+now.getFullYear(),
+        nama : nama,
+        tanggal:tampilanBulan
      
     });
     loading.style.display = "none"; // hilangkan loading
