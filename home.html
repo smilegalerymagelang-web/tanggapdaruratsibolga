@@ -217,7 +217,7 @@ onValue(dbRef, (snapshot) => {
 
         html += `
         <tr>
-        <td style='text-align:center;'><img src="${data[key].photo.replace(/"/g, '')}" width="50"></td>
+        <td style='text-align:center;'><img src="${data[key].photo.replace(/\\\//g, "/")}" width="50"></td>
         <td >${pukul} ${data[key].waktu.replace(/"/g, '')} ${wib}</td>
         <td style='text-align:center; vertical-align:middle;'>${data[key].nama.replace(/"/g, '')}</td>
       
