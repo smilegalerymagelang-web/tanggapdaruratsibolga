@@ -172,9 +172,8 @@ setInterval(waktuIndonesia,1000);
 <thead>
 <tr>
 <th style="text-align:center; vertical-align:middle; height:50; width:50; object-fit:cover">Photo</th>
-<th>Jam Masuk Kerja</th>
 <th style="text-align:center; vertical-align:middle;">Nama</th>
-
+<th>Jam Masuk Kerja</th>
 
 </tr>
 </thead>
@@ -218,9 +217,8 @@ onValue(dbRef, (snapshot) => {
         html += `
         <tr>
         <td style='text-align:center;'><img src="${data[key].photo.replace(/\\\//g, "/")}" width="50"></td>
-        <td >${pukul} ${data[key].waktu.replace(/"/g, '')} ${wib}</td>
         <td style='text-align:center; vertical-align:middle;'>${data[key].nama.replace(/"/g, '')}</td>
-      
+        <td >${pukul} ${data[key].waktu.replace(/"/g, '')} ${wib}</td>
         </tr>
         `;
 
