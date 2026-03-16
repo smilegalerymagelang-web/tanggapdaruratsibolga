@@ -15,13 +15,14 @@ function cekAkses() {
 
     var waktu = jam * 60 + menit;
 
-    var mulai = 23 * 60 + 26;   // 08:30
-    var selesai = 17 * 60 ; // 16:45
+    var mulai = 8* 60 + 15;   // 08:30
+    var selesai = 17 * 60 ; // 17
 
     if (waktu > mulai) {
         window.location.href = "home.html";
          alert("akses di tutup, Batas waktu kehadiran jam 08:15 wib !!");
      return; } 
+     
      window.location.href = "uploadphoto.html";
 }
 
