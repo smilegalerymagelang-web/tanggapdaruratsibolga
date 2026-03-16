@@ -13,6 +13,7 @@
 
 
 <body>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
         <script >
@@ -41,14 +42,22 @@
                 document.getElementById("password").innerHTML = data.password;
 
                 // cek jika password masih 123
-                if(data.password === "123"){
-                    alert("Password anda masih default, untuk kenyamanan silakan ganti password! anda");
-                    window.location.href = "home.html";
+              if(data.password == "123"){
+                Swal.fire({
+                        icon: "warning",
+                        title: "Password anda masih Default",
+                        text: "untuk kenyamanan silakan ganti password!",
+                        confirmButtonText: "Ok",
+                        confirmButtonColor: "#2196F3"
+                    }).then(() => {
+                        window.location.href = "home.html";
+                    });
                 }else{
-        window.location.href = "home.html";
-    }
-
+                    window.location.href = "home.html";
+                }
             });
+
+
 
 </script>
 
