@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+<p id="nama"></p>
+<div id="username"></div>
+<div id="password"></div>    
+</head>
+
+
+
+<body>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+        <script >
+            
+            const firebaseConfig = {
+             apiKey: "AIzaSyC0D0j5H_er4TYdRdQj7xqCiTCSas30YY0",
+            authDomain: "backuptransksi.firebaseapp.com",
+            databaseURL: "https://backuptransksi-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "backuptransksi",
+            storageBucket: "backuptransksi.firebasestorage.app",
+            messagingSenderId: "205255091131",
+            appId: "1:205255091131:web:05bb8036f0d93cbf621a9e",
+            measurementId: "G-QFJDCS967X"
+            };
+
+          firebase.initializeApp(firebaseConfig);
+
+            const db = firebase.database();
+            const user = "Abdi Haris Quwara";
+
+            db.ref("users/" + user).once("value", function(snapshot){
+
+                const data = snapshot.val();
+
+                // tampilkan password di layar
+                document.getElementById("password").innerHTML = data.password;
+
+                // cek jika password masih 123
+                if(data.password === "123"){
+                    alert("Password anda masih default, untuk kenyamanan silakan ganti password! anda");
+                    window.location.href = "home.html";
+                }else{
+        window.location.href = "home.html";
+    }
+
+            });
+
+</script>
+
+
+
+</body>
+</html>
