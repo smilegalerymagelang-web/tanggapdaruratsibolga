@@ -214,7 +214,17 @@ onValue(dbRef, (snapshot) => {
    let no = 1;
     let html = "";
 
-    for (let key in data){
+    if (!data) {
+        html = `
+        <tr>
+            <td colspan="4" style="text-align:center; padding:10px;">
+                Data Belum Tersedia !
+            </td>
+        </tr>
+        `;
+    } else {
+
+       for (let key in data){
 
         html += `
         <tr>
@@ -226,7 +236,7 @@ onValue(dbRef, (snapshot) => {
         `;
    no++;
     }
-
+    }
     document.getElementById("isiData").innerHTML = html;
 
 });
