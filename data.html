@@ -62,7 +62,7 @@ body{
 <body>
 
 <nav class="navbar">
-   <div class="logo">Apk Kehadiran Kerja </div><br>
+   <div class="logo">Daftar Belum Hadir Hari Ini </div><br>
   
    <div class="profile-menu">
       <img src="https://res.cloudinary.com/deybh6pja/image/upload/v1773302450/project_helmet_architect_constructor_builder_icon_255747.png" class="profile-img" onclick="toggleMenu()">
@@ -161,8 +161,9 @@ setInterval(waktuIndonesia,1000);
 
 <thead>
 <tr>
+<th style="text-align:center; vertical-align:middle;" >No.</th>
 <th style="text-align:center; vertical-align:middle;">Nama</th>
-<th>Jabatan</th>
+<th style="text-align:center; vertical-align:middle;">Jabatan</th>
 
 </tr>
 </thead>
@@ -176,14 +177,14 @@ import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10
   
   // Your web app's Firebase configuration
             const firebaseConfig = {
-                apiKey: "AIzaSyBnQl8uR6Dhb95-V2jJjqqaVE96lewT9RU",
-                authDomain: "absen-periode-4-maret-2026.firebaseapp.com",
-                databaseURL: "https://absen-periode-4-maret-2026-default-rtdb.firebaseio.com",
-                projectId: "absen-periode-4-maret-2026",
-                storageBucket: "absen-periode-4-maret-2026.firebasestorage.app",
-                messagingSenderId: "853195810700",
-                appId: "1:853195810700:web:44987fa2984bcf05b218a9",
-                measurementId: "G-YKCEB5DEPK"
+               apiKey: "AIzaSyBnQl8uR6Dhb95-V2jJjqqaVE96lewT9RU",
+  authDomain: "absen-periode-4-maret-2026.firebaseapp.com",
+  databaseURL: "https://absen-periode-4-maret-2026-default-rtdb.firebaseio.com",
+  projectId: "absen-periode-4-maret-2026",
+  storageBucket: "absen-periode-4-maret-2026.firebasestorage.app",
+  messagingSenderId: "853195810700",
+  appId: "1:853195810700:web:44987fa2984bcf05b218a9",
+  measurementId: "G-YKCEB5DEPK"
             };
 
 
@@ -200,18 +201,20 @@ onValue(dbRef, (snapshot) => {
 
     const data = snapshot.val();
     let html = "";
+    let no = 1;
 
     for (let key in data){
 
         html += `
         <tr>
-        <td style='text-align:center; vertical-align:middle;'>${data[key].nama.replace(/"/g, '')}</td>
-       <td style='text-align:center; vertical-align:middle;'>${data[key].jabatan.replace(/"/g, '')}</td>
+         <td style="text-align:center;">${no}</td>
+        <td >${data[key].username}</td>
+       <td >${data[key].jabatan}</td>
         </tr>
         `;
-
+      no++;
     }
-
+    
     document.getElementById("isiData").innerHTML = html;
 
 });
