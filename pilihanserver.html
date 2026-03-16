@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Pilih Server</title>
+
+<style>
+body{
+    font-family: Arial;
+    text-align:center;
+    margin-top:100px;
+}
+
+button{
+    width:150px;
+    height:50px;
+    font-size:16px;
+    margin:10px;
+    border:none;
+    border-radius:8px;
+    color:white;
+    cursor:pointer;
+}
+
+.server1{
+    background:#2196F3;
+}
+
+.server2{
+    background:#4CAF50;
+}
+
+button:hover{
+    opacity:0.8;
+}
+</style>
+</head>
+
+<body>
+
+<h2>Pilih Server</h2>
+
+<button class="server1" onclick="server1()">Server 1</button>
+<button class="server2" onclick="server2()">Server 2</button><br><br>
+ <a href="home.html" style="font-size:20px;">Kembali</a>
+<script>
+function server1(){
+    window.location.href="uploadphoto.html";
+}
+
+function server2(){
+    window.location.href="uploadphoto2.html";
+}
+</script>
+
+</body>
+</html>
