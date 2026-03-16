@@ -1,12 +1,12 @@
 const firebaseConfig = {
-             apiKey: "AIzaSyBnQl8uR6Dhb95-V2jJjqqaVE96lewT9RU",
-                authDomain: "absen-periode-4-maret-2026.firebaseapp.com",
-                databaseURL: "https://absen-periode-4-maret-2026-default-rtdb.firebaseio.com",
-                projectId: "absen-periode-4-maret-2026",
-                storageBucket: "absen-periode-4-maret-2026.firebasestorage.app",
-                messagingSenderId: "853195810700",
-                appId: "1:853195810700:web:44987fa2984bcf05b218a9",
-                measurementId: "G-YKCEB5DEPK"
+            apiKey: "AIzaSyBnQl8uR6Dhb95-V2jJjqqaVE96lewT9RU",
+            authDomain: "absen-periode-4-maret-2026.firebaseapp.com",
+            databaseURL: "https://absen-periode-4-maret-2026-default-rtdb.firebaseio.com",
+            projectId: "absen-periode-4-maret-2026",
+            storageBucket: "absen-periode-4-maret-2026.firebasestorage.app",
+            messagingSenderId: "853195810700",
+            appId: "1:853195810700:web:44987fa2984bcf05b218a9",
+            measurementId: "G-YKCEB5DEPK"
             };
 
 firebase.initializeApp(firebaseConfig);
@@ -55,7 +55,8 @@ let xhr = new XMLHttpRequest();
     "Juli","Agustus","September","Oktober","November","Desember"
     ];
     
-    const imageUrl = data.secure_url;
+    const imageUrl2 = data.secure_url;
+    const imageUrl = imageUrl2 + "?v=" + Date.now();
     const now = new Date();
     const bulan = namabulan[now.getMonth()];
     const nama = localStorage.getItem("username");
@@ -65,7 +66,7 @@ let xhr = new XMLHttpRequest();
 
     // PREVIEW
     document.getElementById("preview").src = imageUrl;
-    document.getElementById("urlText").textContent = data.secure_url;
+    document.getElementById("urlText").textContent = imageUrl;
 
     if(!file){ 
       alert("Photo Selfie Masih Kosong !!,silahkan Ambil Photo Selfie.."); 
