@@ -176,7 +176,7 @@ document.getElementById("submitBtn").addEventListener("click", function(e) {
     const now = new Date();
     const hour = now.getHours();
 
-    if (hour < 9) {
+    if (hour < 17) {
         e.preventDefault();
          Swal.fire({
             position: 'top-end',
