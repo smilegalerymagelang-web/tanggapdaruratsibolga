@@ -181,8 +181,10 @@ return; }
     });
     
     const data = await response.json();
+   
 
-    const imageUrl = data.secure_url;
+  
+    const imageUrl= data.secure_url + "?t=" + new Date().getTime();
 
     // simpan ke firebase
     firebase.database().ref("safari/"+nama+"/"+tanggal).update({
