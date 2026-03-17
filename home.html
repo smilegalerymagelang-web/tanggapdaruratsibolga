@@ -61,6 +61,14 @@ body{
 .dropdown a:hover{
    background:#f1f1f1;
 }
+
+.photoTable{
+width:50px;
+height:50px;
+object-fit:cover;
+border-radius:6px;
+border:1px solid #ddd;
+}
 </style>
 </head>
 
@@ -128,17 +136,67 @@ border-radius:40%;
     font-family:comic;
     font-weight:bold;
 }
+
+body{
+    font-family: Arial;
+    text-align:left;
+    margin-top:0px;
+}
+
+button{
+    width:120px;
+    height:30px;
+    font-size:13px;
+    margin:10px;
+    border:none;
+    border-radius:8px;
+    color:white;
+    cursor:pointer;
+}
+
+.server2{
+    background:#33b7d84d;
+}
+
+
 </style>
 </head>
 
 <body>
 <p id="nama"></p>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 document.getElementById("nama").innerHTML = getCookie("username");
 </script>
-<div id="jam"></div>
+<div id="jam"> </div>
+
+<button id="submitBtn" class="server2">Absensi Pulang</button>
 <script>
+document.getElementById("submitBtn").addEventListener("click", function(e) {
+    const now = new Date();
+    const hour = now.getHours();
+
+    if (hour < 9) {
+        e.preventDefault();
+         Swal.fire({
+            position: 'top-end',
+            icon: 'warning',
+            title: 'Absensi Pulang dilakukan setelah jam 17:00 wib',
+            showConfirmButton: false,
+            timer: 3000
+})
+       
+    } else {
+         Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Terima kasih, Absensi Pulang Berhasil di Proses !',
+            showConfirmButton: false,
+            timer: 3000
+})
+    }
+});
+
 function waktuIndonesia(){
 
     const hari = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
@@ -214,29 +272,29 @@ onValue(dbRef, (snapshot) => {
    let no = 1;
     let html = "";
 
-    if (!data) {
+     if (!data) {
         html = `
         <tr>
             <td colspan="4" style="text-align:center; padding:10px;">
-                Belum ada Data Masuk  !
+                Data Belum Tersedia !
             </td>
         </tr>
         `;
     } else {
 
-       for (let key in data){
+    for (let key in data){
 
         html += `
         <tr>
          <td style="text-align:center;">${no}</td>
-        <td style='text-align:center;'><img src="${data[key].photo.replace(/\\\//g, "/")}" width="50"></td>
-        <td style='text-align:center; vertical-align:middle;'>${data[key].nama.replace(/"/g, '')}</td>
-        <td style='text-align:center; vertical-align:middle;'>${pukul} ${data[key].waktu.replace(/"/g, '')} ${wib}</td>
+         <td style='text-align:center;'><img src="${data[key].photo}" class="photoTable"></td>
+        <td style='text-align:center; vertical-align:middle;'>${data[key].nama}</td>
+        <td style='text-align:center; vertical-align:middle;'>${pukul} ${data[key].waktu} ${wib}</td>
         </tr>
         `;
    no++;
     }
-    }
+   }
     document.getElementById("isiData").innerHTML = html;
 
 });
