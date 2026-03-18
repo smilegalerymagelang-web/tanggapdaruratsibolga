@@ -21,13 +21,10 @@ button{
     cursor:pointer;
 }
 
-.server1{
-    background:#2196F3;
-}
-
-.server2{
-    background:#4CAF50;
-}
+.server1{ background:#2196F3; }
+.server2{ background:#4CAF50; }
+.server3{ background:#FF9800; }
+.server4{ background:#F44336; }
 
 button:hover{
     opacity:0.8;
@@ -40,8 +37,14 @@ button:hover{
 <h2>Pilih Server</h2>
 
 <button class="server1" onclick="server1()">Server 1</button>
-<button class="server2" onclick="server2()">Server 2</button><br><br>
- <a href="home.html" style="font-size:20px;">Kembali</a>
+<button class="server2" onclick="server2()">Server 2</button><br>
+
+<button class="server3" onclick="server3()">Server 3</button>
+<button class="server4" onclick="server4()">Server 4</button>
+
+<br><br>
+<a href="home.html" style="font-size:20px;">Kembali</a>
+
 <script>
 function server1(){
     window.location.href="uploadphoto.html";
@@ -49,6 +52,14 @@ function server1(){
 
 function server2(){
     window.location.href="uploadphoto2.html";
+}
+
+function server3(){
+    window.location.href="uploadphoto3.html";
+}
+
+function server4(){
+    window.location.href="uploadphoto4.html";
 }
 </script>
 
