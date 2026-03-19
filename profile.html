@@ -56,6 +56,14 @@ body{
 .dropdown a:hover{
    background:#f1f1f1;
 }
+
+.photoTable{
+width:50px;
+height:50px;
+object-fit:cover;
+border-radius:6px;
+border:1px solid #ddd;
+}
 </style>
 </head>
 
@@ -211,9 +219,9 @@ onValue(dbRef, (snapshot) => {
 
         html += `
         <tr>
-        <td style='text-align:center;'><img src="${data[key].photo.replace(/\\\//g, "/")}" width="50"></td>
-         <td style='text-align:center;' >${tgl} ${data[key].tanggal.replace(/"/g, '')} </td>
-        <td style='text-align:center;'>${pukul} ${data[key].waktu.replace(/"/g, '')}${wib}</td>
+       <td style='text-align:center;'><img src="${data[key].photo}" class="photoTable"></td>
+         <td style='text-align:center;' >${tgl} ${data[key].tanggal} </td>
+       <td style='text-align:center; vertical-align:middle;'>${pukul} ${data[key].waktu} ${wib}</td>
         </tr>
         `;
 

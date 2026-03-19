@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loading...</title>
+
+    <script>
+
+         // pindah halaman setelah 3 detik
+        setTimeout(function(){
+            window.location.href = "loading.html";
+
+         }, 3000);
+    </script>
+
+    <style>
+        body{
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+            font-family:Arial;
+        }
+
+        .loader{
+            border:8px solid #f3f3f3;
+            border-top:8px solid #3498db;
+            border-radius:50%;
+            width:60px;
+            height:60px;
+            animation:spin 1s linear infinite;
+        }
+
+        @keyframes spin{
+            0%{ transform:rotate(0deg); }
+            100%{ transform:rotate(360deg); }
+        }
+
+        
+    </style>
+
+</head>
+
+<body>
+
+<div class="loader"></div>
+<div class="preview">
+        <img id="preview" src="">
+        
+    </div>
+
+</body>
+</html>
