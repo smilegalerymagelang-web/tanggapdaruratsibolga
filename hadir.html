@@ -117,6 +117,13 @@ border-radius:50%;
     font-family:comic;
     font-weight:bold;
 }
+.photoTable{
+width:50px;
+height:50px;
+object-fit:cover;
+border-radius:6px;
+border:1px solid #ddd;
+}
 </style>
 </head>
 
@@ -209,10 +216,10 @@ onValue(dbRef, (snapshot) => {
 
         html += `
         <tr>
-         <td style="text-align:center;">${no}</td>
-        <td style='text-align:center;'><img src="${data[key].photo.replace(/\\\//g, "/")}" width="50"></td>
-        <td >${pukul} ${data[key].waktu.replace(/"/g, '')} ${wib}</td>
-        <td style='text-align:center; vertical-align:middle;'>${data[key].nama.replace(/"/g, '')}</td>
+        <td style="text-align:center;">${no}</td>
+         <td style='text-align:center;'><img src="${data[key].photo}" class="photoTable"></td>
+        <td style='text-align:center; vertical-align:middle;'>${data[key].nama}</td>
+        <td style='text-align:center; vertical-align:middle;'>${pukul} ${data[key].waktu} ${wib}</td>
        
         </tr>
         `;
