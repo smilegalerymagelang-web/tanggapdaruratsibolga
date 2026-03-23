@@ -157,6 +157,8 @@ setInterval(waktuIndonesia,1000);
  <div id="jam"></div>
 <a href="data.html" style="font-size:14px; color:red;">| Belum Hadir |</a>  <a href="hadir.html" style="font-size:14px; color:blue;">| Hadir |</a>
 <div class="table-container">
+   <input type="text" id="searchInput" placeholder="Cari nama.." 
+style="margin-bottom:10px; padding:8px; width:100%; max-width:200px;">  
 <table>
 
 <thead>
@@ -194,6 +196,21 @@ const now = new Date();
 const pukul = "pkl. ";
 const wib = " .wib";
 const tanggal = now.getDate()+String(new Date().getMonth() + 1).padStart(2,'0')+now.getFullYear();
+
+document.getElementById("searchInput").addEventListener("keyup", function() {
+    let filter = this.value.toLowerCase();
+    let rows = document.querySelectorAll("#isiData tr");
+
+    rows.forEach(function(row) {
+        let text = row.innerText.toLowerCase();
+        if (text.includes(filter)) {
+            row.style.display = "";
+        } else {
+            row.style.display = "none";
+        }
+    });
+});
+
 
 const dbRef = ref(db, "belumhadir/"+tanggal);
 
