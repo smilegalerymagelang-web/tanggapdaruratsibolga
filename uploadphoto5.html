@@ -107,9 +107,10 @@ border-radius:5px;
         Uploading...
     </div>
 
-    <a href="home.html" style="font-size:20px;">Kembali</a>
+   
 
-<button onclick="uploadPhoto()" id="btnupload">Upload</button>
+<button onclick="uploadPhoto()" id="btnupload">Upload</button><br><br>
+ <a href="home.html" style="font-size:20px;">Kembali</a>
 
 </div>
 </div>
@@ -198,7 +199,7 @@ border-radius:5px;
     firebase.database().ref("absen/"+tanggal).push({
        photo: imageUrl,
         waktu: now.getHours() + ":" + String(new Date().getMinutes()).padStart(2, '0') + ":" + now.getSeconds(),
-        date: now.getDate()+String(new Date().getMonth() + 1).padStart(2,'0')+now.getFullYear(),
+        date: tampilanBulan,
         nama : nama
      
     });
