@@ -170,7 +170,7 @@ document.getElementById("nama").innerHTML = getCookie("username");
 </script>
 <div id="jam"> </div>
 
-<button id="submitBtn" class="server2">Absensi Pulang</button>
+<button id="submitBtn" class="server2" style="display:none;">Absensi Pulang</button>
 <script>
 document.getElementById("submitBtn").addEventListener("click", function(e) {
     const now = new Date();
@@ -225,6 +225,8 @@ setInterval(waktuIndonesia,1000);
 </head>
 
 <div class="table-container">
+   <input type="text" id="searchInput" placeholder="Cari nama.." 
+style="margin-bottom:10px; padding:8px; width:100%; max-width:200px;">  
 <table>
 
 <thead>
@@ -263,6 +265,20 @@ const now = new Date();
 const pukul = "pkl. ";
 const wib = " .wib";
 const tanggal = now.getDate()+String(new Date().getMonth() + 1).padStart(2,'0')+now.getFullYear();
+
+document.getElementById("searchInput").addEventListener("keyup", function() {
+    let filter = this.value.toLowerCase();
+    let rows = document.querySelectorAll("#isiData tr");
+
+    rows.forEach(function(row) {
+        let text = row.innerText.toLowerCase();
+        if (text.includes(filter)) {
+            row.style.display = "";
+        } else {
+            row.style.display = "none";
+        }
+    });
+});
 
 const dbRef = ref(db, "absen/"+tanggal);
 
