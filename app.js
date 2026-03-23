@@ -43,10 +43,22 @@ let xhr = new XMLHttpRequest();
 
 
   fetch("https://api.cloudinary.com/v1_1/deybh6pja/image/upload", {
-    
     method: "POST",
     body: formData
   })
+
+
+
+
+
+
+
+
+
+
+
+
+  
   .then(res => res.json())
   .then(data => {
 
@@ -56,7 +68,8 @@ let xhr = new XMLHttpRequest();
     "Juli","Agustus","September","Oktober","November","Desember"
     ];
     
-    const imageUrl = data.secure_url + "?t=" + new Date().getTime();;
+    const imageUrl2 = data.secure_url;
+    const imageUrl = imageUrl2 + "?v=" + Date.now();
     const now = new Date();
     const bulan = namabulan[now.getMonth()];
     const nama = localStorage.getItem("username");
@@ -66,14 +79,17 @@ let xhr = new XMLHttpRequest();
 
     // PREVIEW
     document.getElementById("preview").src = imageUrl;
-    document.getElementById("urlText").textContent = data.secure_url;
+    document.getElementById("urlText").textContent = imageUrl;
 
-    
+    if(!file){ 
+      alert("Photo Selfie Masih Kosong !!,silahkan Ambil Photo Selfie.."); 
+    return; }
+
     // SIMPAN KE FIREBASE
     firebase.database().ref("absen/"+tanggal).push({
        photo: imageUrl,
         waktu: now.getHours() + ":" + String(new Date().getMinutes()).padStart(2, '0') + ":" + now.getSeconds(),
-        date: now.getDate()+String(new Date().getMonth() + 1).padStart(2,'0')+now.getFullYear(),
+        date: tampilanBulan,
         nama : nama
      
     });
@@ -90,7 +106,9 @@ let xhr = new XMLHttpRequest();
     alert("Photo Berhasil di Upload !!");
    
     document.getElementById("btnupload").style.display = "none";
-
+    setTimeout(function(){
+    location.reload();
+    },2000);
 
   });
 
