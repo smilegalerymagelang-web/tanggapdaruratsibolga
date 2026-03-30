@@ -51,25 +51,33 @@
                 }   
 
              if (username) {
-            document.getElementById("user").textContent = username;} //get cookies
-             const garing = "/";
+            document.getElementById("submit").addEventListener('click', function(e){
+            e.preventDefault();
 
-             document.getElementById("submit").addEventListener('click', function(e){
+            const username = document.getElementById("user").textContent;
+            const newPassword = document.getElementById("password").value;
 
-              e.preventDefault();
-              set(ref(db, "users"+ garing+ document.getElementById("user").textContent),
-              {
-   
-                username: document.getElementById("user").textContent,
-                password: document.getElementById("password").value
-                
-                
-              });
+            update(ref(db, "users/" + username), {
+                password: newPassword
+            })
+            .then(() => {
                 alert("Password Baru Berhasil di Ganti !");
                 document.getElementById("submit").style.display = "none";
-             })
+                clearInput();
+            })
+            .catch((error) => {
+                alert("Gagal update: " + error);
+            });
+        });
+             }
 
              
+
+            firebase.database().ref("safari/"+nama+"/"+tanggal+"/photo").on("value", function(snapshot){
+
+            let url = snapshot.val();
+            });
+
         </script>
     </body>
 </html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Document</title>
+<style>
+body{
+font-family:Arial;
+background:#f2f2f2;
+text-align:center;
+}
+
+.container{
+max-width:400px;
+margin:auto;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+.preview{
+margin:15px 0;
+}
+
+.preview img{
+width:100%;
+max-height:250px;
+object-fit:cover;
+border-radius:8px;
+}
+
+button{
+width:100%;
+padding:10px;
+border:none;
+background:#00aaff;
+color:white;
+font-size:16px;
+border-radius:6px;
+cursor:pointer;
+}
+
+button:hover{
+background:#008ecc;
+}
+</style>
+</head>
+
+<p id="nama"></p>
+
+<body>
+    <div class="container">
+<button onclick="absenPulang()">Absen Pulang</button>
+<br><br>
+ <a href="home.html" style="font-size:20px;">Kembali</a>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+
+<script>
+function absenPulang(){
+
+    const now = new Date();
+    const tanggal = now.getDate().toString().padStart(2,'0') +
+                    (now.getMonth() + 1).toString().padStart(2,'0') +
+                    now.getFullYear();
+
+    const hour = now.getHours();
+
+    // ✅ VALIDASI JAM (minimal jam 17)
+    if (hour < 17) {
+
+        Swal.fire({
+            icon: 'warning',
+            title: 'Belum waktunya pulang!',
+            text: 'Absensi pulang hanya bisa setelah jam 17:00 WIB',
+            confirmButtonText: 'OK'
+        }).then(() => {
+            // 🔁 pindah halaman
+            window.location.href = "home.html";
+        });
+
+        return;
+    }
+
+    // 🔥 Firebase config
+    const firebaseConfig = {
+       apiKey: "AIzaSyC0D0j5H_er4TYdRdQj7xqCiTCSas30YY0",
+            authDomain: "backuptransksi.firebaseapp.com",
+            databaseURL: "https://backuptransksi-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "backuptransksi",
+            storageBucket: "backuptransksi.firebasestorage.app",
+            messagingSenderId: "205255091131",
+            appId: "1:205255091131:web:05bb8036f0d93cbf621a9e",
+            measurementId: "G-QFJDCS967X"
+    };
+
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+
+    const db = firebase.database();
+
+    const nama = localStorage.getItem("username");
+
+    if (!nama) {
+        alert("Username tidak ditemukan!");
+        return;
+    }
+
+    // 🔍 ambil data dari check
+    db.ref("absen/" + tanggal + "/" + nama).once("value", function(snapshot){
+
+    if(snapshot.exists()){
+
+        const data = snapshot.val();
+
+        // ambil value lama
+        const namaVal   = data.nama;
+        const photoVal  = data.photo;
+        const pulangVal = data.pulang;
+        const dateVal   = data.date;
+        const waktuVal  = data.waktu;
+
+        // contoh update (ubah pulang & waktu saja)
+        const updateData = {
+            nama: namaVal,
+            photo: photoVal,
+            date: dateVal,
+            waktu: waktuVal, 
+            pulang: new Date().toLocaleTimeString("id-ID")// waktu baru
+        };
+
+        // 🚀 update ke Firebase
+        db.ref("absen/" + tanggal + "/" + nama).update(updateData);
+        db.ref("periode/" + nama + "/" + tanggal).update(updateData);
+        Swal.fire({
+                        icon: "success",
+                        title: "Berhasil di Update",
+                        text: "Terima kasih, sampai jumpa kembali besok !!",
+                        confirmButtonText: "Ok",
+                        confirmButtonColor: "#2196F3"
+                    }).then(() => {
+                        window.location.href = "home.html";
+                    });
+    } else {
+        alert("Data tidak ditemukan");
+    }
+
+});
+
+   
+}
+</script>
+</script>
+</body>
+</html>
+
+
+ 
