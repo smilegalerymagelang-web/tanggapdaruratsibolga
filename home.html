@@ -111,8 +111,9 @@ border:1px solid #ddd;
          <a href="profile.html">Profile <span id="user"></span></a>
          <a href="cekwaktu2.html" id="AbsenMasuk">Absen Kehadiran</a>
          <a href="checkAbsenPulang.html" id="AbsenPulang" style="display:none;">Absen Pulang</a>
-         <a href="data.html">Data </a>
+         <a href="hadir.html">Data </a>
          <a href="passw.html">Ganti Password </a>
+        <a href="izintabel.html" id="menuIzin" style="display:none;">Request Izin Karyawan</a>
          <a href="index.html">Logout</a>
       </div>
    </div>
@@ -127,6 +128,15 @@ function toggleMenu(){
  const username = localStorage.getItem("username");
         if (username) {
             document.getElementById("user").textContent = username;}
+
+
+// tampilkan nama di menu
+document.getElementById("user").textContent = username;
+
+// cek jika Nurhakiki
+if (username === "Nurhakiki") {
+    document.getElementById("menuIzin").style.display = "block";
+}
 </script>
 
 <style>
@@ -251,6 +261,10 @@ button{
     background: #9E9E9E; /* abu */
 }
 
+.izin {
+    background: #f44336; /* abu */
+}
+
 /* responsive */
 @media (max-width: 600px) {
     .badge {
@@ -333,7 +347,7 @@ function updateMenuByTime() {
     const absenPulang = document.getElementById("AbsenPulang");
 
     // Jika sudah jam 16:00 ke atas
-    if (hours >= 16) {
+    if (hours >= 12) {
         absenMasuk.style.display = "none";
         absenPulang.style.display = "block";
     } else {
@@ -476,13 +490,13 @@ onValue(dbRef, (snapshot) => {
          <td style='text-align:center;'>${item.nama}</td>
          <td style='text-align:center;'>
     <span class="badge masuk">
-        ${item.waktu ? item.waktu : "-"}${ wib}
+        ${item.waktu ? item.waktu : "-"}
     </span>
 </td>
 
 <td style='text-align:center;'>
     <span class="badge ${item.pulang === "-" ? "belum" : "pulang"}">
-        ${item.pulang === "-" ? "- " : item.pulang}${ wib}
+        ${item.pulang === "-" ? "- " : item.pulang}
     </span>
 </td>
         </tr>

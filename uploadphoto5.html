@@ -200,7 +200,7 @@ border-radius:5px;
          // SIMPAN KE FIREBASE
     firebase.database().ref("absen/"+tanggal+"/"+nama).update({
        photo: imageUrl,
-        waktu: now.getHours() + ":" + String(new Date().getMinutes()).padStart(2, '0') + ":" + now.getSeconds(),
+        waktu: now.getHours() + ":" + String(new Date().getMinutes()).padStart(2, '0') + ":" + now.getSeconds()+ " wib",
         date: tampilanBulan,
         nama : nama,
         pulang : pulang
@@ -209,7 +209,7 @@ border-radius:5px;
 
     firebase.database().ref("periode/"+nama+"/"+tanggal).update({
        photo: imageUrl,
-        waktu: now.getHours() + ":" + String(new Date().getMinutes()).padStart(2, '0') + ":" + now.getSeconds(),
+        waktu: now.getHours() + ":" + String(new Date().getMinutes()).padStart(2, '0') + ":" + now.getSeconds()+ " wib",
         date: now.getDate()+String(new Date().getMonth() + 1).padStart(2,'0')+now.getFullYear(),
         nama : nama,
         tanggal:tampilanBulan,

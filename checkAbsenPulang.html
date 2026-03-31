@@ -74,7 +74,7 @@ function absenPulang(){
     const hour = now.getHours();
 
     // ✅ VALIDASI JAM (minimal jam 17)
-    if (hour < 17) {
+    if (hour < 1) {
 
         Swal.fire({
             icon: 'warning',
@@ -127,6 +127,9 @@ function absenPulang(){
         const pulangVal = data.pulang;
         const dateVal   = data.date;
         const waktuVal  = data.waktu;
+        const now = new Date();
+        const wib = " wib";
+        const waktu =  now.getHours() + ":" + String(new Date().getMinutes()).padStart(2, '0') + ":" + now.getSeconds()+ wib;
 
         // contoh update (ubah pulang & waktu saja)
         const updateData = {
@@ -134,7 +137,7 @@ function absenPulang(){
             photo: photoVal,
             date: dateVal,
             waktu: waktuVal, 
-            pulang: new Date().toLocaleTimeString("id-ID")// waktu baru
+            pulang: waktu
         };
 
         // 🚀 update ke Firebase
