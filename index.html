@@ -1,238 +1,132 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login</title>
 
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Segoe UI', sans-serif;
-}
+<html>
+    <head>
+        <title>Login</title>
+     <style>
 
 body{
+    margin:0;
+    font-family:Arial;
     height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    background:linear-gradient(135deg,#00AAFF,#6a11cb);
+    background:url('https://res.cloudinary.com/deybh6pja/image/upload/v1773465393/Sibolga_Pulau_Sumtera.png') no-repeat center;
+    background-size:cover;
 }
 
-/* CARD */
-.login-container{
-    width:90%;
-    max-width:360px;
+.login-box{
+    background:rgba(255,255,255,0.9);
     padding:30px;
-    border-radius:16px;
-    background:rgba(255,255,255,0.1);
-    backdrop-filter:blur(12px);
-    box-shadow:0 8px 25px rgba(0,0,0,0.2);
-    color:white;
-}
-
-/* TITLE */
-.login-container h2{
+    border-radius:10px;
+    width:90%;
+    max-width:350px;
     text-align:center;
-    margin-bottom:25px;
 }
 
-/* INPUT */
-.input-group{
-    position:relative;
+.login-box h2{
     margin-bottom:20px;
 }
 
-.input-group input{
+input{
     width:100%;
-    padding:12px 14px;
-    border:none;
-    outline:none;
-    border-radius:8px;
-    background:rgba(255,255,255,0.2);
-    color:white;
-    font-size:14px;
+    padding:12px;
+    margin:10px 0;
+    border:1px solid #2d0d3aa1;
+    border-radius:6px;
 }
 
-.input-group input::placeholder{
-    color:#ddd;
-}
-
-/* BUTTON */
 button{
     width:100%;
     padding:12px;
     border:none;
-    border-radius:8px;
-    background:#00e0ff;
-    color:#000;
-    font-weight:bold;
+    background:#00AAFF;
+    color:white;
+    font-size:16px;
+    border-radius:6px;
     cursor:pointer;
-    transition:0.3s;
 }
 
 button:hover{
-    background:#00bcd4;
+    background:#008ecc;
 }
 
-/* ERROR */
-.error{
-    margin-top:10px;
-    text-align:center;
-    color:#ffb3b3;
-    font-size:14px;
-}
+</style>  
+    </head>
+    <body>
+       <div class="box">
+            <div class="form">
+                <h3>Login</h3><br>
+                  
+                        <div class="inputbox">
+                           
+                            <input type="text" id="username"  required placeholder="Masukkan Username"><br><br>
+                          
+                        </div>
+                        <div class="inputbox"> 
+                            
+                            <input type="password" id="password"  required placeholder="Masukkan Password"><br><br>
+                          
+                        </div>  
+                            
+                           <button onclick="login()" class="btn-login">Login</button>
+            </div>
+        </div>
+          
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+        <script >
+            
+            const firebaseConfig = {
+             apiKey: "AIzaSyC0D0j5H_er4TYdRdQj7xqCiTCSas30YY0",
+            authDomain: "backuptransksi.firebaseapp.com",
+            databaseURL: "https://backuptransksi-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "backuptransksi",
+            storageBucket: "backuptransksi.firebasestorage.app",
+            messagingSenderId: "205255091131",
+            appId: "1:205255091131:web:05bb8036f0d93cbf621a9e"
+            };
 
-/* LOADING */
-.loading{
-    opacity:0.7;
-    pointer-events:none;
-}
+          firebase.initializeApp(firebaseConfig);
 
-/* RESPONSIVE */
-@media(max-width:400px){
-    .login-container{
-        padding:20px;
-    }
-}
+                const db = firebase.database();
 
-body{
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+                function login() {
 
-    /* BACKGROUND IMAGE */
-    background: 
-        linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)),
-        url('https://res.cloudinary.com/deybh6pja/image/upload/v1773465393/Sibolga_Pulau_Sumtera.png');
+                const username = document.getElementById("username").value;
+                const password = document.getElementById("password").value;
+                const user = document.getElementById("username").value.trim();
 
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
-    background-attachment:fixed; /* efek modern (parallax) */
-}
+                db.ref("users").once("value", function(snapshot) {
 
-.login-container{
-    width:90%;
-    max-width:360px;
-    padding:30px;
-    border-radius:16px;
+                    let loginBerhasil = false;
 
-    background:rgba(255,255,255,0.08);
-    backdrop-filter:blur(15px);
-    -webkit-backdrop-filter:blur(15px);
+                    snapshot.forEach(function(child) {
 
-    border:1px solid rgba(255,255,255,0.2);
-    box-shadow:0 8px 30px rgba(0,0,0,0.4);
-    color:white;
-}
+                    const data = child.val();
 
-.login-container{
-    animation:fadeIn 1s ease;
-}
-
-@keyframes fadeIn{
-    from{
-        opacity:0;
-        transform:translateY(20px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-</style>
-</head>
-
-<body>
-
-<div class="login-container">
-   <h2>
-  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShOtN9b-_mV6GcmRsk9emezMejGFIFeucnVw&s" 
-       alt="Login Icon" 
-       style="width:40px; height:26px; vertical-align:middle; margin-right:8px;">
-  Login
-</h2>
-
-    <div class="input-group">
-        <input type="text" id="username" placeholder="Username">
-    </div>
-
-    <div class="input-group">
-        <input type="password" id="password" placeholder="Password">
-    </div>
-
-    <button id="loginBtn" onclick="login()">Login</button>
-
-    <div id="errorMsg" class="error"></div>
-</div>
-
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-
-<script>
-const firebaseConfig = {
-    apiKey: "AIzaSyC0D0j5H_er4TYdRdQj7xqCiTCSas30YY0",
-    authDomain: "backuptransksi.firebaseapp.com",
-    databaseURL: "https://backuptransksi-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "backuptransksi",
-    storageBucket: "backuptransksi.firebasestorage.app",
-    messagingSenderId: "205255091131",
-    appId: "1:205255091131:web:05bb8036f0d93cbf621a9e"
-};
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-
-/* ENTER KEY SUPPORT */
-document.addEventListener("keypress", function(e){
-    if(e.key === "Enter"){
-        login();
-    }
-});
-
-function login(){
-    const username = document.getElementById("username").value.trim();
-    const password = document.getElementById("password").value.trim();
-    const errorMsg = document.getElementById("errorMsg");
-    const btn = document.getElementById("loginBtn");
-
-    errorMsg.textContent = "";
-
-    if(username === "" || password === ""){
-        errorMsg.textContent = "Username & Password wajib diisi!";
-        return;
-    }
-
-    btn.textContent = "Loading...";
-    btn.classList.add("loading");
-
-    db.ref("users").once("value", function(snapshot){
-        let found = false;
-
-        snapshot.forEach(function(child){
-            const data = child.val();
-
-            if(data.username === username && data.password === password){
-                found = true;
+                    if(data.username === username && data.password === password){
+                        loginBerhasil = true;
+                    
+                   
             }
-        });
 
-        if(found){
-            localStorage.setItem("username", username);
-            window.location.href = "akses.html";
-        }else{
-            errorMsg.textContent = "Username atau Password salah!";
-        }
+            
+            });
 
-        btn.textContent = "Login";
-        btn.classList.remove("loading");
-    });
-}
-</script>
+            if(loginBerhasil){
+                    localStorage.setItem("username", user);
+                    document.getElementById("hasil").innerHTML = window.location.href = "akses.html";
+                    }else{
+                    document.getElementById("hasil").innerHTML = alert("Username & Password Salah !");
+                    }
 
-</body>
+                });
+
+
+            }
+
+
+        </script>
+    </body>
 </html>
